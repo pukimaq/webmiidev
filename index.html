@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BY MIIBOTZZ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <style>
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #5b21b6, #0891b2);
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+      scroll-behavior: smooth;
+    }
+    /* Container */
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255 255 255 / 0.08);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgb(0 0 0 / 0.15);
+      padding: 32px 48px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255 255 255 / 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 2.75rem;
+      background: linear-gradient(135deg, #a78bfa, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* Three dots menu */
+    .menu-button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #ddd;
+      font-family: 'Material Symbols Outlined';
+      font-size: 36px;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+    .menu-button:hover,
+    .menu-button:focus {
+      background-color: rgba(255 255 255 / 0.15);
+      outline: none;
+    }
+    .menu-dropdown {
+      position: absolute;
+      top: 56px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      box-shadow: 0 8px 28px rgb(0 0 0 / 0.5);
+      padding: 8px 0;
+      min-width: 220px;
+      display: none;
+      flex-direction: column;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+    }
+    .menu-dropdown.show {
+      display: flex;
+    }
+    .menu-dropdown a {
+      color: #eee;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.25s ease;
+    }
+    .menu-dropdown a:hover,
+    .menu-dropdown a:focus {
+      background-color: rgba(255 255 255 / 0.15);
+      outline: none;
+    }
+    /* Profile Card */
+    .profile-card {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+      align-items: center;
+      background: rgba(255 255 255 / 0.12);
+      border-radius: 16px;
+      padding: 24px 32px;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.2);
+      backdrop-filter: blur(15px);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .profile-photo {
+      flex-shrink: 0;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(167, 139, 250, 0.7);
+      border: 3px solid #a78bfa;
+      background: #eee;
+      transition: transform 0.3s ease;
+    }
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .profile-photo:hover,
+    .profile-photo:focus {
+      transform: scale(1.05);
+      outline: none;
+      box-shadow: 0 8px 32px rgba(167, 139, 250, 0.9);
+    }
+    .profile-info {
+      flex-grow: 1;
+      color: #ddd;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .profile-info h2 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #d8b4fe;
+    }
+    .profile-info p {
+      margin: 0;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #ccc;
+    }
+    /* Sections */
+    section.content-section {
+      background: rgba(255 255 255 / 0.10);
+      border-radius: 16px;
+      padding: 24px 32px;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
+      backdrop-filter: blur(12px);
+      color: #ddd;
+      max-width: 700px;
+    }
+    section.content-section h3 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #a78bfa;
+      border-bottom: 2px solid #06b6d4;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    ul.skill-list {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    ul.skill-list li {
+      background: #06b6d4;
+      color: white;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 8px rgb(6 182 212 / 0.5);
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    ul.skill-list li:hover {
+      background: #0e7490;
+      cursor: default;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .project-card {
+      background: rgba(255 255 255 / 0.15);
+      padding: 16px 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgb(0 0 0 / 0.15);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .project-card:hover,
+    .project-card:focus {
+      transform: translateY(-6px);
+      outline: none;
+      box-shadow: 0 12px 28px rgb(0 0 0 / 0.3);
+    }
+    .project-card h4 {
+      margin: 0 0 8px 0;
+      color: #d8b4fe;
+    }
+    .project-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #bbb;
+      line-height: 1.3;
+    }
+    /* Telegram chat button */
+    .telegram-chat {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(135deg, #059669, #047857);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      box-shadow: 0 8px 24px rgba(5, 150, 105, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+      z-index: 50;
+      border: none;
+      outline: none;
+    }
+    .telegram-chat:hover,
+    .telegram-chat:focus {
+      box-shadow: 0 12px 32px rgba(5, 150, 105, 0.9);
+      transform: scale(1.1);
+      outline: none;
+    }
+    .telegram-icon {
+      color: #e0f2fe;
+      font-family: 'Material Symbols Outlined';
+      font-size: 28px;
+      user-select: none;
+    }
+    /* Terminal Section */
+    .terminal-section {
+      margin-top: 32px;
+      background: rgba(0, 0, 0, 0.85);
+      color: #00ff99;
+      font-family: 'Source Code Pro', monospace, monospace;
+      font-size: 0.92rem;
+      border-radius: 12px;
+      max-width: 900px;
+      padding: 24px 32px;
+      box-shadow: 0 8px 32px rgb(0 255 153 / 0.3);
+      user-select: none;
+      line-height: 1.4;
+      overflow-x: auto;
+    }
+    .terminal-section h3 {
+      color: #a78bfa;
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-weight: 700;
+      font-size: 1.6rem;
+      border-bottom: 2px solid #06b6d4;
+      padding-bottom: 6px;
+    }
+    .terminal-line {
+      display: flex;
+      align-items: flex-start;
+      font-size: 0.92rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .terminal-prompt {
+      margin-right: 8px;
+      color: #06b6d4;
+      font-weight: 700;
+      user-select: text;
+    }
+    .terminal-text {
+      flex: 1;
+      white-space: pre-wrap;
+      font-family: inherit;
+      user-select: text;
+    }
+    /* Scrollbar for terminal */
+    .terminal-section::-webkit-scrollbar {
+      height: 8px;
+    }
+    .terminal-section::-webkit-scrollbar-thumb {
+      background: #06b6d4;
+      border-radius: 8px;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      body {
+        padding: 24px 12px;
+      }
+      .container {
+        padding: 24px 24px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .menu-button {
+        font-size: 28px;
+      }
+      .menu-dropdown {
+        min-width: 160px;
+        top: 48px;
+        right: 0;
+      }
+      .profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 24px;
+      }
+      .profile-info h2 {
+        font-size: 1.8rem;
+      }
+      section.content-section {
+        padding: 16px;
+        max-width: 100%;
+      }
+      .terminal-section {
+        font-size: 0.85rem;
+        padding: 16px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <h1>WEB MIIBOTZZ</h1>
+      <button aria-haspopup="true" aria-expanded="false" aria-label="Buka menu opsi" class="menu-button" id="menuButton" type="button" title="Menu">
+        more_vert
+      </button>
+      <nav class="menu-dropdown" id="menuDropdown" role="menu" aria-labelledby="menuButton">
+        <a href="#tentang" role="menuitem" tabindex="-1">Tentang Mii</a>
+        <a href="https://t.me/miibotzz20" target="_blank" rel="noopener" role="menuitem" tabindex="-1">Telegram</a>
+        <a href="#kontak" role="menuitem" tabindex="-1">Kontak</a>
+      </nav>
+    </header>
+
+    <article class="profile-card" tabindex="0">
+      <div class="profile-photo" tabindex="0" aria-label="Foto profil pengguna">
+        <img src="https://h.top4top.io/p_3449hye7r0.png" alt="Foto profil profesional MIIBOTZZ DEV dengan latar belakang berwarna ungu dan biru gradasi" loading="lazy" />
+      </div>
+      <div class="profile-info">
+        <h2>WELCOME TO WEB MII</h2>
+        <p>Selamat datang di web miibotzz, trimakasih telah berkunjung di web saya, perkenalkan saya adalah miibotzz pemula anak kemarin sore yang ingin belajar mengoding.</p>
+      </div>
+    </article>
+
+    <section class="content-section" id="tentang" tabindex="0" aria-label="Penjelasan tentang MIIBOTZZ DEV">
+      <h3>Tujuan web</h3>
+      <p>
+        <strong>(miibotzz pemula)</strong> Website ini gue bikin buat belajar, nyoba hal-hal baru, dan sekalian jadi tempat buat nunjukin progres gue di dunia ngoding. Masih sederhana, tapi gue bikin dengan penuh semangat dan terus gue kembangin sedikit demi sedikit.
+Terima kasih udah mampir. Jangan lupa balik lagi—siapa tahu besok tampilannya udah beda 😄
+      </p>
+    </section>
+
+    <section class="content-section" id="keahlian" tabindex="0" aria-label="Daftar bahasa pemrograman">
+  <h3>🧠 Bahasa yang lagi miibotzz pelajari</h3>
+  <p style="margin-bottom: 1rem;">Belajar ngoding itu proses. Kadang pusing, kadang puas. Tapi yang penting: terus jalan.</p>
+
+  <ul class="skill-list" aria-label="Daftar bahasa pemrograman">
+    <li>JavaScript</li>
+    <li>TypeScript</li>
+    <li>Python</li>
+    <li>PHP</li>
+    <li>Go (Golang)</li>
+    <li>Rust</li>
+    <li>C++</li>
+    <li>Java</li>
+    <li>Swift</li>
+    <li>Kotlin</li>
+    <li>Dart</li>
+    <li>Ruby</li>
+    <li>C#</li>
+    <li>Bash</li>
+    <li>SQL</li>
+  </ul>
+</section>
+
+    <section class="content-section" id="proyek" tabindex="0" aria-label="Kata‑kata motivasi keren">
+  <h3>Motivasi Hari Ini</h3>
+
+  <div class="projects-grid">
+    <article class="project-card" tabindex="0">
+      <h4>#1</h4>
+      <p>“Mulai aja dulu, hasil bakal nyusul.”</p>
+    </article>
+
+    <article class="project-card" tabindex="0">
+      <h4>#2</h4>
+      <p>“Kecil langkahnya, besar mimpinya.”</p>
+    </article>
+
+    <article class="project-card" tabindex="0">
+      <h4>#3</h4>
+      <p>“Kalah belajar, menang lanjut.”</p>
+    </article>
+
+    <article class="project-card" tabindex="0">
+      <h4>#4</h4>
+      <p>“Kode bisa di‑debug, semangat jangan.”</p>
+    </article>
+  </div>
+</section>
+
+    <section id="kontak" tabindex="0" aria-label="Informasi kontak" style="text-align:center; color:#ccc; font-size:1rem; margin-top: 16px;">
+      Lu mau chetan ma gua klik tombol hijau di pojok.
+    </section>
+
+    <section class="terminal-section" aria-label="Terminal demo">
+  <h3>Terminal miibotzz</h3>
+
+  <div class="terminal-line"><span class="terminal-prompt">[miibotzz]~$</span><span class="terminal-text">git init hati</span></div>
+  <div class="terminal-line"><span class="terminal-prompt">[miibotzz]~$</span><span class="terminal-text">git remote add origin kenangan</span></div>
+  <div class="terminal-line"><span class="terminal-prompt">[miibotzz]~$</span><span class="terminal-text">git rm --cached perasaan.txt</span></div>
+  <div class="terminal-line"><span class="terminal-prompt">[miibotzz]~$</span><span class="terminal-text">commit -m "hapus semua tentang kamu"</span></div>
+  <div class="terminal-line"><span class="terminal-prompt">[miibotzz]~$</span><span class="terminal-text">push origin move-on --force</span></div>
+  <div class="terminal-line"><span class="terminal-prompt">INFO</span><span class="terminal-text">Hati berhasil dibersihkan.</span></div>
+  <div class="terminal-line"><span class="terminal-prompt">STATUS</span><span class="terminal-text">Sedang membangun ulang diri sendiri... 🛠️</span></div>
+</section>
+
+  <button class="telegram-chat" aria-label="Chat via Telegram" id="telegramButton" type="button" title="Chat Telegram">
+    <span class="telegram-icon">send</span>
+  </button>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const menuDropdown = document.getElementById('menuDropdown');
+
+    menuButton.addEventListener('click', () => {
+      const expanded = menuButton.getAttribute('aria-expanded') === 'true' || false;
+      menuButton.setAttribute('aria-expanded', !expanded);
+      menuDropdown.classList.toggle('show');
+    });
+
+    // Close menu if click outside
+    document.addEventListener('click', (event) => {
+      if (!menuButton.contains(event.target) && !menuDropdown.contains(event.target)) {
+        menuDropdown.classList.remove('show');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Telegram chat button action
+    document.getElementById('telegramButton').addEventListener('click', () => {
+      window.open('https://t.me/miibotzz', '_blank', 'noopener,noreferrer');
+    });
+  </script>
+</body>
+</html>
+
